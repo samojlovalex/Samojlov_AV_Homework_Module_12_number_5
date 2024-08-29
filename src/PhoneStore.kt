@@ -5,4 +5,3 @@ abstract class PhoneStore(private val assortment: List<String>, private val pric
     abstract var salesStatisticsStore: MutableMap<String, Int>
     abstract var spendingStatisticsStore: MutableMap<String, Double>
     abstract val currency: String
-    abstract val city: String}
