@@ -14,4 +14,17 @@ abstract class PhoneStore(private val assortment: List<String>, private val pric
             mapOut[assortment[i]] = prices[i]
         }
         return mapOut
-    }}
+    }
+    open fun pricePrint() {
+        //функция печатает прайс-лист
+        var numberStroke = 1
+        if (getPrices().isNotEmpty()) {
+            println("Стоимость телефонов в магазине $storeName")
+            for (i in getPrices()) {
+                println("$numberStroke. ${i.key} - ${String.format("%.2f",i.value)} $currency")
+                numberStroke++
+            }
+        }
+    }
+
+}
