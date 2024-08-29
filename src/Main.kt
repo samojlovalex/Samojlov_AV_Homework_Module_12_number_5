@@ -63,4 +63,14 @@ fun main() {
         14958.00,
         3645.00
     )
+    println(
+        "Здравствуйте!\nДля входа в наш интернет магазин требуется регистрация." +
+                "\nДля регистрации введите пожалуйста своё имя и придумайте пароль" +
+                "\nИмя:"
+    )
+    val name = readln()
+    println("Пароль:")
+    val password = readln()
+    val onlineStore = OnlineStore(name, assortment, priceUfa, priceKazan)
+    onlineStore.openOnlineStore()
 }
