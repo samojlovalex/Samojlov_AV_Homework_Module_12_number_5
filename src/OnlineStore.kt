@@ -16,4 +16,14 @@ class OnlineStore (
             println("${i + 1} - ${listStore[i].city}")
         }
     }
+
+    private fun statisticsStore() {
+    //функция печатающая статистику покупок в конкретном магазине
+        for (i in listStore.indices) {
+            if (listStore[i].salesStatisticsStore.isNotEmpty()) {
+                listStore[i].saleStatisticsPrint()
+            }
+        }
+    }
+
 }
