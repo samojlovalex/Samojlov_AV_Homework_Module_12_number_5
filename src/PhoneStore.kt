@@ -44,5 +44,18 @@ abstract class PhoneStore(private val assortment: List<String>, private val pric
         println(salesStatisticsOutPosition)
         getLine("-")
     }
+    open fun saleStatisticsPrint() {
+        //функция печатает общую статистику покупок в магазине
+
+        val result = String.format("%.2f", spendingStatisticsStore.values.sum())
+        println("\nВ магазине $storeName вами были приобретены телефоны:")
+
+        for (i in salesStatisticsStore) {
+            println("${i.key} - ${i.value} шт.")
+        }
+
+        println("\nНа общую сумму: $result $currency")
+        getLine("-")
+    }
 
 }
