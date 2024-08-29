@@ -26,5 +26,23 @@ abstract class PhoneStore(private val assortment: List<String>, private val pric
             }
         }
     }
+    open fun salesStatistics(numberInThePriceList: Int) {
+        //функция учитывает статистику покупки телефонов конкретной марки и сумму покупок
+        //этой марки телефона, печатает какой телефон куплен
+        val lineInThePriceList = assortment[numberInThePriceList - 1]
+        var oldValue = 0
+        if (salesStatisticsStore[lineInThePriceList] != null) oldValue = salesStatisticsStore[lineInThePriceList] ?: 0
+        salesStatisticsStore[lineInThePriceList] = ++oldValue
+        var costOfThePosition = 0.0
+        var salesStatistics = 0
+        if (salesStatisticsStore[lineInThePriceList] != null) salesStatistics =
+            salesStatisticsStore[lineInThePriceList] ?: 0
+        if (getPrices()[lineInThePriceList] != null) costOfThePosition = getPrices()[lineInThePriceList] ?: 0.0
+        spendingStatisticsStore[lineInThePriceList] = costOfThePosition * salesStatistics
+        val salesStatisticsOutPosition = "Телефон $lineInThePriceList куплен в магазине $storeName\nСумма покупки: " +
+                "${String.format("%.2f",getPrices()[lineInThePriceList])} $currency\nСпасибо за покупку!"
+        println(salesStatisticsOutPosition)
+        getLine("-")
+    }
 
 }
