@@ -1,6 +1,6 @@
 const val NAME_ONLINE_STORE = "ОЙ СТОРЭ"
 
-class OnlineStore (
+class OnlineStore(
     private val name: String,
     private val assortment: List<String>,
     private val ufaPrice: List<Double>,
@@ -20,7 +20,7 @@ class OnlineStore (
     }
 
     private fun statisticsStore() {
-    //функция печатающая статистику покупок в конкретном магазине
+        //функция печатающая статистику покупок в конкретном магазине
         for (i in listStore.indices) {
             if (listStore[i].salesStatisticsStore.isNotEmpty()) {
                 listStore[i].saleStatisticsPrint()
@@ -67,11 +67,12 @@ class OnlineStore (
                     println("\n0. Вернуться к выбору магазина")
 
                     var choicePhone = readln()
-                    val correctChoicePhone = choicePhone in "0"..assortment.size.toString()
+                    choicePhone = checkInputIntNumbers(choicePhone,choiceCity)
+                    val correctChoicePhone = choicePhone.toInt() in 0..assortment.size
 
                     choicePhone = inCorrectChoicePhone(correctChoicePhone, choiceCity, choicePhone)
 
-                    if (choicePhone in "1"..assortment.size.toString()) {
+                    if (choicePhone.toInt() in 1..assortment.size) {
                         listStore[choiceCity.toInt() - 1].salesStatistics(choicePhone.toInt())
                         choice = "1"
                     } else choice = "1"
@@ -87,7 +88,11 @@ class OnlineStore (
         if (choice == "2") println("До свидания ${name}, всегда рады увидеть Вас в нашем магазине $NAME_ONLINE_STORE")
     }
 
-    private fun inCorrectChoicePhone(correctChoicePhone: Boolean, choiceCity: String, choicePhone: String): String {
+    private fun inCorrectChoicePhone(
+        correctChoicePhone: Boolean,
+        choiceCity: String,
+        choicePhone: String,
+    ): String {
         var correctChoicePhone1 = correctChoicePhone
         var choicePhone1 = choicePhone
         while (!correctChoicePhone1) {
@@ -95,7 +100,8 @@ class OnlineStore (
             listStore[choiceCity.toInt() - 1].pricePrint()
             println("\n0. Вернуться к выбору магазина")
             choicePhone1 = readln()
-            correctChoicePhone1 = choicePhone1 in "0"..assortment.size.toString()
+            choicePhone1 = checkInputIntNumbers(choicePhone1,choiceCity)
+            correctChoicePhone1 = choicePhone1.toInt() in 0..assortment.size
         }
         return choicePhone1
     }
@@ -109,6 +115,7 @@ class OnlineStore (
                 "\"$name!\nВыберете город из которого хотите заказать себе телефон"
             )
             listStorePrint()
+            println("\n0 - Закончить покупки")
             choiceCity1 = readln()
             correctChoiceCity1 = choiceCity1 in "0"..listStore.size.toString()
         }
@@ -149,6 +156,19 @@ class OnlineStore (
             )
             listStore[choiceCity.toInt() - 1].saleStatisticsPrint()
         }
+    }
+
+    private fun checkInputIntNumbers(number: String, choiceCity: String): String{
+        var number1 = number
+        var choicePhoneToInt = number1.toIntOrNull() != null
+        while (!choicePhoneToInt){
+            println("Введено недопустимое значение, введите номер строки из предложенного списка")
+            listStore[choiceCity.toInt() - 1].pricePrint()
+            println("\n0. Вернуться к выбору магазина")
+            number1 = readln()
+            choicePhoneToInt = number1.toIntOrNull() != null
+        }
+        return number1
     }
 
 }
